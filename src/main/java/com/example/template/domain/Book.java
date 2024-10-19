@@ -1,9 +1,6 @@
 package com.example.template.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.extern.java.Log;
 
 @Log
@@ -12,7 +9,7 @@ import lombok.extern.java.Log;
 @NoArgsConstructor
 @Builder
 public class Book {
-
+    // Class that define book's attribute
     private String isbn;
     private String title;
     private Long authorId;

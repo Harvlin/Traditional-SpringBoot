@@ -10,10 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class Author {
-
+    // Class that define author's attribute
     private Long id;
     private String name;
     private Integer age;
-
 
 }
