@@ -1,6 +1,6 @@
 package com.example.template.dao.impl;
 
-import com.example.template.dao.impl.AuthorDaoImpl;
+import com.example.template.TestDataUtility;
 import com.example.template.domain.Author;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,20 +14,16 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthorDaoImplTest {
+
     @Mock
     private JdbcTemplate jdbcTemplate;
 
     @InjectMocks
     private AuthorDaoImpl underTest;
 
-    // Create test method to test if AuthorDaoImpl generates correct action towards database
     @Test
     public void testThatCreateAuthorGeneratesTheCorrectSql() {
-        Author author = Author.builder()
-                .id(1L)
-                .name("Harvlin")
-                .age(14)
-                .build();
+        Author author = TestDataUtility.createTestAuthor();
         underTest.create(author);
 
         verify(jdbcTemplate).update(eq("INSERT INTO authors (id, name, age) VALUES (?, ?, ?)"),
@@ -35,7 +31,7 @@ public class AuthorDaoImplTest {
     }
 
     @Test
-    public void testThatOneGeneratesTheCorrectSql() {
+    public void testThatFindOneGeneratesTheCorrectSql() {
         underTest.findOne(1l);
         verify(jdbcTemplate).query(
                 eq("SELECT id, name, age FROM authors WHERE id = ? LIMIT 1"),
