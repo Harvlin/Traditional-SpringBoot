@@ -45,4 +45,11 @@ public class BookDaoImpl implements BookDao {
                     .build();
         }
     }
+
+    @Override
+    public List<Book> findMany() {
+        return jdbcTemplate.query("SELECT isbn, title, author_id",
+                new BookRowMapper()
+        );
+    }
 }

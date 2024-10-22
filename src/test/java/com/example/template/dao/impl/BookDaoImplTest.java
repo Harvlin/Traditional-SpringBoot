@@ -23,7 +23,7 @@ public class BookDaoImplTest {
 
     @Test
     public void testThatCreateBookGeneratesTheCorrectSql() {
-        Book book = TestDataUtility.createTestBook();
+        Book book = TestDataUtility.createTestBookA();
         underTest.create(book);
 
         verify(jdbcTemplate).update(eq("INSERT INTO books (isbn, title, author_id) VALUES (?, ?, ?)"),
@@ -39,5 +39,12 @@ public class BookDaoImplTest {
                 ArgumentMatchers.<BookDaoImpl.BookRowMapper>any(),
                 eq("1234567890")
         );
+    }
+
+    @Test
+    public void testThatFindManyGeneratesTheCorrectSql() {
+        underTest.findMany();
+        verify(jdbcTemplate).query(eq("SELECT isbn, title, author_id FROM books"),
+                ArgumentMatchers.<BookDaoImpl.BookRowMapper>any());
     }
 }

@@ -33,11 +33,27 @@ public final class TestDataUtility {
                 .build();
     }
 
-    public static Book createTestBook() {
+    public static Book createTestBookA() {
         return Book.builder()
                 .isbn("1234567890")
                 .title("The beginning after the end")
                 .authorId(1L)
+                .build();
+    }
+
+    public static Book createTestBookB() {
+        return Book.builder()
+                .isbn("0987654321")
+                .title("The beginning after the end")
+                .authorId(1L)
+                .build();
+    }
+
+    public static Book createTestBookC() {
+        return Book.builder()
+                .isbn("1234555554321")
+                .title("The beginning after the end")
+                .authorId(2L)
                 .build();
     }
 }
