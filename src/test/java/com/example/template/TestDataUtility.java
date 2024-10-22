@@ -44,7 +44,7 @@ public final class TestDataUtility {
     public static Book createTestBookB() {
         return Book.builder()
                 .isbn("0987654321")
-                .title("The beginning after the end")
+                .title("ABC")
                 .authorId(1L)
                 .build();
     }
@@ -52,8 +52,8 @@ public final class TestDataUtility {
     public static Book createTestBookC() {
         return Book.builder()
                 .isbn("1234555554321")
-                .title("The beginning after the end")
-                .authorId(2L)
+                .title("DEF")
+                .authorId(1L)
                 .build();
     }
 }

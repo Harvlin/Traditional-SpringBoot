@@ -2,7 +2,6 @@ package com.example.template.dao.impl.integrationTest;
 
 import com.example.template.TestDataUtility;
 import com.example.template.dao.AuthorDao;
-import com.example.template.dao.impl.AuthorDaoImpl;
 import com.example.template.dao.impl.BookDaoImpl;
 import com.example.template.domain.Author;
 import com.example.template.domain.Book;
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
@@ -35,7 +33,6 @@ public class BookDaoImplIntegrationTest {
     public void TestThatBookCanBeCreatedAndRecalled() {
         Author authorA = TestDataUtility.createTestAuthorA();
         authorDao.create(authorA);
-
         Book book = TestDataUtility.createTestBookA();
         book.setAuthorId(authorA.getId());
         underTest.create(book);
@@ -49,16 +46,17 @@ public class BookDaoImplIntegrationTest {
     public void testThatMultipleBookCanBeCreatedAndRecalled() {
         Author authorA = TestDataUtility.createTestAuthorA();
         authorDao.create(authorA);
-        Author authorB = TestDataUtility.createTestAuthorB();
-        authorDao.create(authorB);
-        Author authorC = TestDataUtility.createTestAuthorC();
-        authorDao.create(authorC);
 
         Book bookA = TestDataUtility.createTestBookA();
+        bookA.setAuthorId(authorA.getId());
         underTest.create(bookA);
+
         Book bookB = TestDataUtility.createTestBookB();
+        bookB.setAuthorId(authorA.getId());
         underTest.create(bookB);
+
         Book bookC = TestDataUtility.createTestBookC();
+        bookC.setAuthorId(authorA.getId());
         underTest.create(bookC);
 
         List<Book> results = underTest.findMany();
