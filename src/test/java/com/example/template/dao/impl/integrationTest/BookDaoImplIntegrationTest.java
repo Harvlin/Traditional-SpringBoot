@@ -28,7 +28,7 @@ public class BookDaoImplIntegrationTest {
 
     @Test
     public void TestThatBookCanBeCreatedAndRecalled() {
-        Author author = TestDataUtility.createTestAuthor();
+        Author author = TestDataUtility.createTestAuthorA();
         authorDao.create(author);
 
         Book book = TestDataUtility.createTestBook();
