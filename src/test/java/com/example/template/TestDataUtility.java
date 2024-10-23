@@ -13,7 +13,7 @@ public final class TestDataUtility {
         return Author.builder()
                 .id(1L)
                 .name("Harvlin")
-                .age(14)
+                .age(15)
                 .build();
     }
 
@@ -44,14 +44,14 @@ public final class TestDataUtility {
     public static Book createTestBookB() {
         return Book.builder()
                 .isbn("0987654321")
-                .title("ABC")
+                .title("ORV")
                 .authorId(1L)
                 .build();
     }
 
     public static Book createTestBookC() {
         return Book.builder()
-                .isbn("1234555554321")
+                .isbn("Solo Leveling")
                 .title("DEF")
                 .authorId(1L)
                 .build();

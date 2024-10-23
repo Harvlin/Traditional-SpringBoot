@@ -27,11 +27,11 @@ public class AuthorDaoImplIntegrationTest {
 
     @Test
     public void TestThatAuthorCanBeCratedAndRecalled() {
-        Author author = TestDataUtility.createTestAuthorA();
-        underTest.create(author);
-        Optional<Author> results = underTest.findOne(author.getId());
+        Author authorA = TestDataUtility.createTestAuthorA();
+        underTest.create(authorA);
+        Optional<Author> results = underTest.findOne(authorA.getId());
         assertThat(results).isPresent();
-        assertThat(results.get()).isEqualTo(author);
+        assertThat(results.get()).isEqualTo(authorA);
     }
 
     @Test
@@ -45,5 +45,19 @@ public class AuthorDaoImplIntegrationTest {
 
         List<Author> result = underTest.findMany();
         assertThat(result).hasSize(3).containsExactly(authorA, authorB, authorC);
+    }
+
+    @Test
+    public void testThatAuthorCanBeUpdated() {
+        Author authorA = TestDataUtility.createTestAuthorA();
+        underTest.create(authorA);
+
+        authorA.setName("UPDATED");
+        underTest.fullUpdate(authorA.getId(), authorA);
+
+        Optional<Author> result = underTest.findOne(authorA.getId());
+        assertThat(result).isPresent();
+        assertThat(result.get()).isEqualTo(authorA);
+
     }
 }
