@@ -13,6 +13,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
@@ -61,5 +63,19 @@ public class BookDaoImplIntegrationTest {
 
         List<Book> results = underTest.findMany();
         assertThat(results).hasSize(3).containsExactly(bookA, bookB, bookC);
+    }
+
+    @Test
+    public void testThatBookCanBeDeleted() {
+        Author authorA = TestDataUtility.createTestAuthorA();
+        authorDao.create(authorA);
+
+        Book bookA = TestDataUtility.createTestBookA();
+        bookA.setAuthorId(authorA.getId());
+        underTest.create(bookA);
+
+        underTest.delete(bookA.getIsbn());
+        Optional<Book> result = underTest.findOne(bookA.getIsbn());
+        assertThat(result).isEmpty();
     }
 }

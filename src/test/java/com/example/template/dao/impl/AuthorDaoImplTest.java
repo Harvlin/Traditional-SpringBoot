@@ -56,4 +56,14 @@ public class AuthorDaoImplTest {
                                    1L, "Harvlin", 15, 3L
         );
     }
+
+    @Test
+    public void testThatAuthorDeleteGeneratesTheCorrectSql() {
+        Author authorA = TestDataUtility.createTestAuthorA();
+        underTest.delete(1L);
+
+        verify(jdbcTemplate).update("DELETE FROM authors WHERE id = ?",
+                1L
+        );
+    }
 }

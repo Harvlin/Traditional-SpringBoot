@@ -35,6 +35,20 @@ public class BookDaoImpl implements BookDao {
         return results.stream().findFirst();
     }
 
+    @Override
+    public List<Book> findMany() {
+        return jdbcTemplate.query("SELECT isbn, title, author_id FROM books",
+                new BookRowMapper()
+        );
+    }
+
+    @Override
+    public void delete(String isbn) {
+        jdbcTemplate.update("DELETE FROM books WHERE isbn = ?",
+                isbn
+        );
+    }
+
     public static class BookRowMapper implements RowMapper<Book> {
         @Override
         public Book mapRow(ResultSet resultSet, int rowNum) throws SQLException {
@@ -44,12 +58,5 @@ public class BookDaoImpl implements BookDao {
                     .authorId(resultSet.getLong("author_id"))
                     .build();
         }
-    }
-
-    @Override
-    public List<Book> findMany() {
-        return jdbcTemplate.query("SELECT isbn, title, author_id FROM books",
-                new BookRowMapper()
-        );
     }
 }
