@@ -27,7 +27,8 @@ public class AuthorDaoImplTest {
         underTest.create(author);
 
         verify(jdbcTemplate).update(eq("INSERT INTO authors (id, name, age) VALUES (?, ?, ?)"),
-                eq(author.getId()), eq(author.getName()), eq(author.getAge()));
+                eq(author.getId()), eq(author.getName()), eq(author.getAge())
+        );
     }
 
     @Test
@@ -44,7 +45,8 @@ public class AuthorDaoImplTest {
     public void testThatFindManyGeneratesTheCorrectSql() {
         underTest.findMany();
         verify(jdbcTemplate).query(eq("SELECT id, name, age FROM authors"),
-                ArgumentMatchers.<AuthorDaoImpl.AuthorRowMapper>any());
+                ArgumentMatchers.<AuthorDaoImpl.AuthorRowMapper>any()
+        );
     }
 
     @Test

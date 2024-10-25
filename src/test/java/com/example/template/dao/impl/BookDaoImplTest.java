@@ -45,7 +45,18 @@ public class BookDaoImplTest {
     public void testThatFindManyGeneratesTheCorrectSql() {
         underTest.findMany();
         verify(jdbcTemplate).query(eq("SELECT isbn, title, author_id FROM books"),
-                ArgumentMatchers.<BookDaoImpl.BookRowMapper>any());
+                ArgumentMatchers.<BookDaoImpl.BookRowMapper>any()
+        );
+    }
+
+    @Test
+    public void testThatFullUpdateGeneratesTheCorrectSql() {
+        Book book = TestDataUtility.createTestBookA();
+        underTest.fullUpdate("1234567890", book);
+        verify(jdbcTemplate).update(eq("UPDATE books SET isbn = ?, title =  ?, author_id = ? WHERE isbn = ?"),
+                eq(book.getIsbn()), eq(book.getTitle()), eq(book.getAuthorId()),
+                eq("1234567890")
+        );
     }
 
     @Test
