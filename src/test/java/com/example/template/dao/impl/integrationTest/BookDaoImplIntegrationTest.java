@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD) // to clean populated data after each method
 public class BookDaoImplIntegrationTest {
 
     private AuthorDao authorDao;
@@ -29,6 +29,7 @@ public class BookDaoImplIntegrationTest {
         this.authorDao = authorDao;
     }
 
+    // to test create and find one
     @Test
     public void TestThatBookCanBeCreatedAndRecalled() {
         Author authorA = TestDataUtility.createTestAuthorA();
@@ -36,12 +37,13 @@ public class BookDaoImplIntegrationTest {
         Book book = TestDataUtility.createTestBookA();
         book.setAuthorId(authorA.getId());
         underTest.create(book);
-        Optional<Book> results = underTest.findOne(book.getIsbn());
 
+        Optional<Book> results = underTest.findOne(book.getIsbn());
         assertThat(results).isPresent();
         assertThat(results.get()).isEqualTo(book);
     }
 
+    // to test find many
     @Test
     public void testThatMultipleBookCanBeCreatedAndRecalled() {
         Author authorA = TestDataUtility.createTestAuthorA();
@@ -63,6 +65,7 @@ public class BookDaoImplIntegrationTest {
         assertThat(results).hasSize(3).containsExactly(bookA, bookB, bookC);
     }
 
+    // to test full update
     @Test
     public void testThatBookCanBeUpdated() {
         Author authorA = TestDataUtility.createTestAuthorA();
@@ -80,6 +83,7 @@ public class BookDaoImplIntegrationTest {
         assertThat(result.get()).isEqualTo(bookA);
     }
 
+    // to test delete
     @Test
     public void testThatBookCanBeDeleted() {
         Author authorA = TestDataUtility.createTestAuthorA();

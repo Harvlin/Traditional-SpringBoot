@@ -3,6 +3,7 @@ package com.example.template.dao.impl.integrationTest;
 import com.example.template.TestDataUtility;
 import com.example.template.dao.impl.AuthorDaoImpl;
 import com.example.template.domain.Author;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD) // to clean populated data after each method
 public class AuthorDaoImplIntegrationTest {
 
     private AuthorDaoImpl underTest;
@@ -25,6 +26,8 @@ public class AuthorDaoImplIntegrationTest {
         this.underTest = underTest;
     }
 
+
+    // Test the create and find one
     @Test
     public void TestThatAuthorCanBeCratedAndRecalled() {
         Author authorA = TestDataUtility.createTestAuthorA();
@@ -34,6 +37,8 @@ public class AuthorDaoImplIntegrationTest {
         assertThat(results.get()).isEqualTo(authorA);
     }
 
+
+    // To test find many
     @Test
     public void testThatMultipleAuthorCanBeCreatedAndRecalled() {
         Author authorA = TestDataUtility.createTestAuthorA();
@@ -47,6 +52,8 @@ public class AuthorDaoImplIntegrationTest {
         assertThat(result).hasSize(3).containsExactly(authorA, authorB, authorC);
     }
 
+
+    // to test full update
     @Test
     public void testThatAuthorCanBeUpdated() {
         Author authorA = TestDataUtility.createTestAuthorA();
@@ -61,6 +68,7 @@ public class AuthorDaoImplIntegrationTest {
 
     }
 
+    // to test delete
     @Test
     public void testThatAuthorCanBeDeleted() {
         Author authorA = TestDataUtility.createTestAuthorA();
